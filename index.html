@@ -79,6 +79,11 @@ h1{font-size:clamp(34px,7vw,58px);line-height:1.04;font-weight:700;margin-top:18
 .rec p{margin-top:6px;font-size:17px;line-height:1.5}
 .soon{background:#ffd60a;color:#0e0e11;border-radius:10px;padding:8px 12px;font-weight:700;font-size:15px;margin:0 0 14px!important}
 .btn{margin-top:14px;min-height:52px;padding:0 18px;border-radius:12px;background:#ffd60a;color:#0e0e11;text-decoration:none;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;gap:10px}
+.by{display:flex;align-items:center;gap:12px;margin-top:16px}
+.av{flex:0 0 50px;width:50px;height:50px;border-radius:50%;background:#ffd60a;border:2px solid #0e0e11;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:21px;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover;display:block}
+.by b{display:block;font-size:16.5px;line-height:1.25}
+.by span{font-size:14.5px;color:#5b5d66}
 .pick{background:#fff;border:1.5px solid #0e0e11;border-radius:16px;padding:14px;margin-top:16px}
 .pick.ask{background:#ffd60a}
 .pick b{font-size:19px;display:block}
@@ -115,6 +120,7 @@ footer b{color:#0e0e11}
 <p class="sub">כל מה שצריך לסגור לפני הטיסה. מסמנים, וזה נשמר אצלכם.</p></div>
 <button type="button" class="cd empty" id="cd" aria-live="polite"><b id="cdn">?</b><span id="cdt">מתי טסים?</span></button></div>
 </header>
+<div class="by"><span class="av" id="av" aria-hidden="true">מ</span><div><b>מוראל אברמוב</b><span id="mytrip">טס לדרום אמריקה ב-<bdi>28.1.2027</bdi></span></div></div>
 <div class="pick ask" id="pick"><b>לאן טסים?</b><span class="ph">בוחרים יעד, והצ'קליסט מוסיף את הכניסה למדינה ואת החיסונים שכדאי לשאול עליהם.</span><div class="opts"><button type="button" class="opt" data-dest="sa" aria-pressed="false">דרום אמריקה</button><button type="button" class="opt" data-dest="ca" aria-pressed="false">מרכז אמריקה</button><button type="button" class="opt" data-dest="th" aria-pressed="false">תאילנד</button><button type="button" class="opt" data-dest="vn" aria-pressed="false">וייטנאם</button><button type="button" class="opt" data-dest="in" aria-pressed="false">הודו ונפאל</button><button type="button" class="opt" data-dest="ot" aria-pressed="false">יעד אחר</button></div></div>
 <div class="bar" role="status"><div class="row"><span id="lbl">סימנתם 0</span><span class="pct" id="pct">0%</span></div><div class="track" aria-hidden="true"><div class="fill" id="fill"></div></div></div>
 <nav class="chips" aria-label="קפיצה לקבוצה"><a class="chip" href="#s00" data-chip="00" hidden><span>00</span>היעד שלכם</a><a class="chip" href="#s01" data-chip="01"><span>01</span>חודשיים לפני</a><a class="chip" href="#s02" data-chip="02"><span>02</span>כסף</a><a class="chip" href="#s03" data-chip="03"><span>03</span>ביטוח</a><a class="chip" href="#s04" data-chip="04"><span>04</span>טלפון וגיבויים</a><a class="chip" href="#s05" data-chip="05"><span>05</span>ציוד שתמיד שוכחים</a><a class="chip" href="#s06" data-chip="06"><span>06</span>יום לפני הטיסה</a><a class="chip" href="#s07" data-chip="07"><span>07</span>הרשימה שלי</a></nav>
@@ -222,6 +228,12 @@ document.getElementById('addf').addEventListener('submit',function(e){
   mine.push({t:v.slice(0,80),c:0}); save(MKEY,mine); inp.value=''; drawMine(); render(); inp.focus();
 });
 (function(){var url=location.href.split('#')[0], text="צ'קליסט לטיול הגדול, שווה לעבור עליו לפני הטיסה"; document.getElementById('share').href='https://wa.me/?text='+encodeURIComponent(text+' '+url);})();
+(function(){var t=new Date(2027,0,28), n=new Date(); n.setHours(0,0,0,0); var d=Math.round((t-n)/86400000), el=document.getElementById('mytrip');
+  if(d>1) el.appendChild(document.createTextNode(' · עוד '+d+' ימים'));
+  else if(d===1) el.appendChild(document.createTextNode(' · מחר'));
+  else if(d===0) el.appendChild(document.createTextNode(' · היום'));
+  else el.textContent='כרגע בטיול בדרום אמריקה';
+})();
 
 drawDest(); drawMine(); render();
 })();
